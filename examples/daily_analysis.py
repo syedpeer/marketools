@@ -15,10 +15,10 @@ MAX_RELATIVE_PRICE_CHANGE_TO_BUY = 0
 MIN_WIG_CHANGE_TO_BUY = 0
 MAX_RELATIVE_PRICE_DROP_TO_KEEP = 0.055
 TAKE_PROFIT = 0.9
-STOP_LOSS = 0.025
+STOP_LOSS = 0.02
 MAX_POSITIONS = 5
-MIN_INVESTMENT = 1000
-MAX_INVESTMENT = 7000
+MIN_INVESTMENT = 2000
+MAX_INVESTMENT = 10000
 
 
 def my_strategy(day, wallet, traded_stocks, wig, *args, **kwargs):
@@ -50,8 +50,8 @@ def my_strategy(day, wallet, traded_stocks, wig, *args, **kwargs):
                 if price_change_buy and day_volume_increased:
                     # buy!
                     invest = calculate_investment_value(wallet, MAX_POSITIONS)
-                    # invest = max(invest, MIN_INVESTMENT)
-                    # invest = min(invest, MAX_INVESTMENT)
+                    invest = max(invest, MIN_INVESTMENT)
+                    invest = min(invest, MAX_INVESTMENT)
                     # needs some money to pay commission
                     invest = invest / (1 + wallet.rate)
                     volume_to_buy = math.floor(invest / close_price)
